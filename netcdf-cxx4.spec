@@ -7,7 +7,7 @@ Summary:	NetCDF C++ library
 Summary(pl.UTF-8):	Biblioteka NetCDF dla języka C++
 Name:		netcdf-cxx4
 Version:	4.2
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Libraries
 Source0:	ftp://ftp.unidata.ucar.edu/pub/netcdf/%{name}-%{version}.tar.gz
