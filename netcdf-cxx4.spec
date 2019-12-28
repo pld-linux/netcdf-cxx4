@@ -1,25 +1,26 @@
 #
 # Conditional build:
-%bcond_without	tests		# don't perform "make check"
-				# (note: tests need endoder-enabled szip)
+%bcond_without	static_libs	# static library
+%bcond_without	tests		# unit tests (encoder-enabled szip required)
 #
 Summary:	NetCDF C++ library
 Summary(pl.UTF-8):	Biblioteka NetCDF dla języka C++
 Name:		netcdf-cxx4
-Version:	4.3.0
-Release:	3
+Version:	4.3.1
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	ftp://ftp.unidata.ucar.edu/pub/netcdf/%{name}-%{version}.tar.gz
-# Source0-md5:	b4a9783b2b0b98d4e6f36cc19c8d08ef
+# Source0-md5:	19cccc27a24fc9095ddbe84bf90ebc83
+Patch0:		%{name}-link.patch
 URL:		http://www.unidata.ucar.edu/packages/netcdf/
 BuildRequires:	autoconf >= 2.66
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2.2
-BuildRequires:	netcdf-devel >= 4.2
+BuildRequires:	netcdf-devel >= 4.6.0
 BuildRequires:	texinfo
-Requires:	netcdf >= 4.2
+Requires:	netcdf >= 4.6.0
 Obsoletes:	netcdf-c++
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,7 +50,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe interfejsu netCDF dla języka C++
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
-Requires:	netcdf-devel >= 4.2
+Requires:	netcdf-devel >= 4.6.0
 Obsoletes:	netcdf-c++-devel
 
 %description devel
@@ -73,6 +74,7 @@ Statyczna wersja biblioteki netCDF dla języka C++.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -80,7 +82,8 @@ Statyczna wersja biblioteki netCDF dla języka C++.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure
+%configure \
+	%{!?with_static_libs:--disable-static}
 
 %{__make}
 
@@ -94,6 +97,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# bzip2 plugin packaged in base netcdf
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libh5bzip2.*
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libnetcdf_c++4.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -102,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYRIGHT
+%doc COPYRIGHT README.md RELEASE_NOTES.md
 %attr(755,root,root) %{_libdir}/libnetcdf_c++4.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libnetcdf_c++4.so.1
 
@@ -110,7 +118,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ncxx4-config
 %attr(755,root,root) %{_libdir}/libnetcdf_c++4.so
-%{_libdir}/libnetcdf_c++4.la
 %{_includedir}/ncAtt.h
 %{_includedir}/ncByte.h
 %{_includedir}/ncChar.h
@@ -140,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/netcdf
 %{_pkgconfigdir}/netcdf-cxx4.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libnetcdf_c++4.a
+%endif

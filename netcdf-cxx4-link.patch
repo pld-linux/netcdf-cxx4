@@ -1,0 +1,17 @@
+--- netcdf-cxx4-4.3.1/cxx4/Makefile.am.orig	2019-09-11 21:16:15.000000000 +0200
++++ netcdf-cxx4-4.3.1/cxx4/Makefile.am	2019-12-28 09:27:36.041713209 +0100
+@@ -4,11 +4,13 @@
+ # This file builds the new C++-4 interface.
+ 
+ # Point pre-preprocessor to netcdf-4 directory (libsrc4).
+-LDADD = $(top_builddir)/cxx4/libnetcdf_c++4.la  -lnetcdf
++LDADD = $(top_builddir)/cxx4/libnetcdf_c++4.la
+ 
+ # This is our output library.
+ lib_LTLIBRARIES = libnetcdf_c++4.la
+ 
++libnetcdf_c__4_la_LIBADD = -lnetcdf
++
+ # For rules updating the version info, see
+ # http://www.gnu.org/s/libtool/manual/html_node/Updating-version-info.html
+ libnetcdf_c__4_la_LDFLAGS = -version-info 2:0:1 -no-undefined
