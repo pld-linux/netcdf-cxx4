@@ -7,13 +7,13 @@ Summary:	NetCDF C++ library
 Summary(pl.UTF-8):	Biblioteka NetCDF dla języka C++
 Name:		netcdf-cxx4
 Version:	4.3.1
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Libraries
 Source0:	ftp://ftp.unidata.ucar.edu/pub/netcdf/%{name}-%{version}.tar.gz
 # Source0-md5:	19cccc27a24fc9095ddbe84bf90ebc83
 Patch0:		%{name}-link.patch
-URL:		http://www.unidata.ucar.edu/packages/netcdf/
+URL:		https://www.unidata.ucar.edu/software/netcdf/
 BuildRequires:	autoconf >= 2.66
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
