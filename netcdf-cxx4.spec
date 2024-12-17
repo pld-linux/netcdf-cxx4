@@ -10,7 +10,7 @@ Version:	4.3.1
 Release:	3
 License:	BSD-like
 Group:		Libraries
-Source0:	ftp://ftp.unidata.ucar.edu/pub/netcdf/%{name}-%{version}.tar.gz
+Source0:	https://downloads.unidata.ucar.edu/netcdf-cxx/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	19cccc27a24fc9095ddbe84bf90ebc83
 Patch0:		%{name}-link.patch
 URL:		https://www.unidata.ucar.edu/software/netcdf/
