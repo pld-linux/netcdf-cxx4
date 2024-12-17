@@ -21,7 +21,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	netcdf-devel >= 4.6.0
 BuildRequires:	texinfo
 Requires:	netcdf >= 4.6.0
-Obsoletes:	netcdf-c++
+Obsoletes:	netcdf-c++ < 4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,7 +51,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libstdc++-devel
 Requires:	netcdf-devel >= 4.6.0
-Obsoletes:	netcdf-c++-devel
+Obsoletes:	netcdf-c++-devel < 4.2
 
 %description devel
 Header files for netCDF - C++ interface.
@@ -64,7 +64,7 @@ Summary:	NetCDF C++ static library
 Summary(pl.UTF-8):	Biblioteka statyczna netCDF dla języka C++
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Obsoletes:	netcdf-c++-static
+Obsoletes:	netcdf-c++-static < 4.2
 
 %description static
 Static version of netCDF C++ library.
