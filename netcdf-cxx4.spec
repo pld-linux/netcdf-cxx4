@@ -7,12 +7,14 @@ Summary:	NetCDF C++ library
 Summary(pl.UTF-8):	Biblioteka NetCDF dla języka C++
 Name:		netcdf-cxx4
 Version:	4.3.1
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Libraries
+#Source0Download: https://github.com/Unidata/netcdf-cxx4/releases
 Source0:	https://downloads.unidata.ucar.edu/netcdf-cxx/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	19cccc27a24fc9095ddbe84bf90ebc83
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-nc_set_log_level.patch
 URL:		https://www.unidata.ucar.edu/software/netcdf/
 BuildRequires:	autoconf >= 2.66
 BuildRequires:	automake
@@ -75,6 +77,7 @@ Statyczna wersja biblioteki netCDF dla języka C++.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__libtoolize}
@@ -112,12 +115,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc COPYRIGHT README.md RELEASE_NOTES.md
 %attr(755,root,root) %{_libdir}/libnetcdf_c++4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnetcdf_c++4.so.1
+%ghost %{_libdir}/libnetcdf_c++4.so.1
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ncxx4-config
-%attr(755,root,root) %{_libdir}/libnetcdf_c++4.so
+%{_libdir}/libnetcdf_c++4.so
 %{_includedir}/ncAtt.h
 %{_includedir}/ncByte.h
 %{_includedir}/ncChar.h
